@@ -25,16 +25,23 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = rigidBody2D.position;
         if (rigidBody2D.velocity.x != 0)
         {
-            animator.SetInteger("Walk", Mathf.RoundToInt(Mathf.Sign(rigidBody2D.velocity.x)));
+            animator.SetInteger("DirectionX", Mathf.RoundToInt(Mathf.Sign(rigidBody2D.velocity.x)));
         }
         else
         {
-            animator.SetInteger("Walk", 0);
+            animator.SetInteger("DirectionX", 0);
         }
-        
+        if (rigidBody2D.velocity.y != 0)
+        {
+            animator.SetInteger("DirectionY", Mathf.RoundToInt(Mathf.Sign(rigidBody2D.velocity.y)));
+        }
+        else
+        {
+            animator.SetInteger("DirectionY", 0);
+        }
+
     }
 
     private void FixedUpdate()
