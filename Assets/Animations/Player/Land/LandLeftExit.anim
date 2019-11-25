@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ExitJumpLeft
+  m_Name: LandLeftExit
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -45,7 +45,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: bcf4731b7a63b48c5ba6e8a14f00fbf2, type: 3}
+      value: {fileID: 21300000, guid: e85ca69398800400182654239a29d921, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -72,7 +72,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: bcf4731b7a63b48c5ba6e8a14f00fbf2, type: 3}
+    - {fileID: 21300000, guid: e85ca69398800400182654239a29d921, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
