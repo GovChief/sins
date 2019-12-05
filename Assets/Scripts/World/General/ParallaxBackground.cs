@@ -2,38 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxBackground : MonoBehaviour
-{
-    public float smoothing = 10f;
+namespace World.General {
+	public class ParallaxBackground : MonoBehaviour {
+		private const float SLOW_DOWN_FACTOR = 0.1f;
 
-    private float parallaxScale;
-    private Transform cam;
-    private Vector3 previousCamPosition;
+		[Tooltip("Set to 0 to freeze parallax effect on X axis")]
+		public float parallaxSpeedHorizonal = 1f;
 
-    private void Awake()
-    {
-        cam = Camera.main.transform;
-    }
+		[Tooltip("Set to 0 to freeze parallax effect on Y axis")]
+		public float parallaxSpeedVertical = 1f;
 
-    void Start()
-    {
-        previousCamPosition = cam.position;
+		private float parallaxScale;
+		private Transform cam;
+		private Vector3 previousCamPosition;
 
-        parallaxScale = transform.position.z;
-    }
+		private void Awake () {
+			cam = Camera.main.transform;
+		}
 
-    void Update()
-    {
-        float parallaxX = (previousCamPosition.x - cam.position.x) * parallaxScale;
-        float parallaxY = (previousCamPosition.y - cam.position.y) * parallaxScale;
+		void Start () {
+			previousCamPosition = cam.position;
 
-        float backgroundTargetPositionX = transform.position.x + parallaxX;
-        float backgroundTargetPositionY = transform.position.y - parallaxY;
+			parallaxScale = transform.position.z;
+		}
 
-        Vector3 backgroundTargetPosition = new Vector3(backgroundTargetPositionX, backgroundTargetPositionY, transform.position.z);
+	void Update () {
+			Vector3 backgroundTargetPosition =
+				new Vector3(calculateBackgroundTargetPositionX(),
+					calculateBackgroundTargetPositionY(),
+					transform.position.z);
 
-        transform.position = Vector3.Lerp(transform.position, backgroundTargetPosition, Time.deltaTime / smoothing);
+			transform.position = Vector3.Lerp(transform.position, backgroundTargetPosition, Time.deltaTime);
 
-        previousCamPosition = cam.position;
-    }
+			previousCamPosition = cam.position;
+		}
+
+		float calculateBackgroundTargetPositionX () {
+			float parallaxX = (previousCamPosition.x - cam.position.x)
+				* parallaxScale * parallaxSpeedHorizonal * SLOW_DOWN_FACTOR;
+
+			return transform.position.x + parallaxX;
+		}
+
+		float calculateBackgroundTargetPositionY () {
+			float parallaxY = (previousCamPosition.y - cam.position.y)
+				* parallaxScale * parallaxSpeedVertical * SLOW_DOWN_FACTOR;
+
+			return transform.position.y - parallaxY;
+		}
+	}
 }
