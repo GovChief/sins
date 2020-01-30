@@ -12,10 +12,27 @@ public class PlayerDamageTriggerController : MonoBehaviour
 
         if (other.gameObject.name == "Trap")
         {
-            health -= 10;
+            TakeDamage(10);
         } else if (other.tag == "Bullet")
         {
-            health -= 15;
+            TakeDamage(15);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        health -= damage;
+        StartCoroutine(TransparentTakingDamage());
+    }
+
+    IEnumerator TransparentTakingDamage()
+    {
+        int i = 0;
+        while (i < 4)
+        {
+            gameObject.GetComponent<Renderer>().enabled = !gameObject.GetComponent<Renderer>().enabled;
+            i++;
+            yield return new WaitForSeconds(0.3f);
         }
     }
 }

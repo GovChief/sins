@@ -25,9 +25,9 @@ public class BulletSpawner : MonoBehaviour
         {
             if(time< Time.time)
             {
-                Vector2 position = new Vector2(transform.position.x, transform.position.y+1);
-                BulletController bullet = Instantiate(bulletPrefab, position, transform.rotation) as BulletController;
+                BulletController bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as BulletController;
                 bullet.dir = dir2;
+                bullet.transform.rotation = Quaternion.Euler(0, 0, 0);
                 time = Time.time + bulletDelay;
             }
         }
