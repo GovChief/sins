@@ -22,10 +22,19 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        animator.SetInteger("DirectionX", MathSignWithZero(rigidBody2D.velocity.x));
-        animator.SetInteger("DirectionY", MathSignWithZero(rigidBody2D.velocity.y));
+        transform.position = rigidBody2D.position;
+        if (rigidBody2D.velocity.x != 0)
+        {
+            animator.SetInteger("Walk", Mathf.RoundToInt(Mathf.Sign(rigidBody2D.velocity.x)));
+        }
+        else
+        {
+            animator.SetInteger("Walk", 0);
+        }
+        
     }
 
     private void FixedUpdate()
@@ -42,18 +51,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       isGrounded |= collision.gameObject.layer == FLOOR_LAYER;
-    }
-
-    private int MathSignWithZero(float number)
-    {
-        if (number == 0)
+       if (collision.gameObject.layer == FLOOR_LAYER)
         {
-            return 0;
-        }
-        else
-        {
-            return Mathf.RoundToInt(Mathf.Sign(number));
+            isGrounded = true;
+            Debug.Log(isGrounded.ToString());
         }
     }
 }
